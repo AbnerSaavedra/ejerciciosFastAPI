@@ -1,5 +1,4 @@
 from fastapi import FastAPI
-from validacionesPydantic import User
  
 app = FastAPI()
 

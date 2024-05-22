@@ -18,7 +18,7 @@ class User(BaseModel):
     username: str
     full_name: str | None = None
 
-app = FastAPI()
+app = FastAPI() 
 
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
