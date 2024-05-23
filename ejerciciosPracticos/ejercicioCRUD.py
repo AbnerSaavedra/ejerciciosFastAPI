@@ -17,7 +17,7 @@ class Producto(BaseModel):
     fechaActualizacion: datetime
 
 @app.get("/productos", response_model=List[Producto])
-def get_products():
+def get_products() -> List[Producto]:
     return listaProductos
 
 @app.post("/productos/", response_model=Producto)
@@ -26,13 +26,10 @@ def crear_producto(producto: Producto):
     listaProductos.append(producto)
     return producto
 
-@app.get("/productos/{id}")
+@app.get("/productos/{id}", response_model=Producto)
 def get_producto(id: int):
-    for n in range(0, len(listaProductos)):
-        if listaProductos[n].id == id:
-            return listaProductos[n]
-        else:
-            return 0
+    producto = listaProductos[id]
+    return producto
         
 @app.put("/productos/{id}", response_model=Producto)
 def update_producto(id: int, producto: Producto):
@@ -41,6 +38,6 @@ def update_producto(id: int, producto: Producto):
 
 
 @app.delete("/productos/{id}")
-def update_producto(id: int):
+def delete_producto(id: int):
     del listaProductos[id]
     return {"mensaje": "Producto eliminado exitosamente."}
