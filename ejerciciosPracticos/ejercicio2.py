@@ -13,10 +13,10 @@ class reservaHotel(BaseModel):
     fechaSalida: date
     numeroHuespedes: int
     tipoHabitacion: str
-    @field_validator("fechaEntrada", "fechaSalida")
+    '''@field_validator("fechaEntrada", "fechaSalida")
     def validarFechasReservacion(cls, fechaEntrada,fechaSalida):
         if fechaSalida <= fechaEntrada:
-            raise ValueError("Fecha de salida no puede ser menor a la de entrada.")
+            raise ValueError("Fecha de salida no puede ser menor a la de entrada.")'''
     @field_validator("tipoHabitacion")
     def validarTipoHabitacion(tipoHabitacion):
         if tipoHabitacion in tiposHabitaciones:
@@ -40,7 +40,7 @@ fecha2 = datetime(year=2024, month=5, day=20).date()
 if fecha1 > fecha2:
     print("Error")
 #fecha = datetime.strptime(fecha_str, "%d/%m/%Y").date()
-reserva = reservaHotel(fechaEntrada=fecha1, fechaSalida=fecha2, numeroHuespedes=10, tipoHabitacion="Matrimonial")
+reserva = reservaHotel(fechaEntrada=fecha1, fechaSalida=fecha2, numeroHuespedes="sasa", tipoHabitacion="Duplex")
 
 print(reserva)
 
