@@ -1,4 +1,3 @@
-from fastapi import FastAPI
 from pydantic import BaseModel, field_validator
 from email_validator import validate_email, EmailNotValidError
 
@@ -9,15 +8,11 @@ class User(BaseModel):
     password: str
     @field_validator('nombre')
     def name_validations(cls, nombre):
-        if len(nombre) == 0:
+        if len(nombre) == 0 or nombre == "":
             raise ValueError('Debe ingresar el nombre.')
-        if(nombre.isalnum() == False):
-            raise ValueError('El nombre debe ser una cadena.')
         return nombre
     @field_validator('edad')
     def age_validation(cls, edad):
-        if edad - int(edad) != 0:
-            raise ValueError('Edad no permitida, debe ser un número entero')
         if edad < 18:
             raise ValueError('Edad no permitida, menor de edad')
         if edad  > 60:
@@ -30,9 +25,11 @@ class User(BaseModel):
         except EmailNotValidError as e:
             raise ValueError('Email no permitido'. str(e))
     @field_validator('password')
-    def email_validation(cls, password):
+    def password_validation(cls, password):
         if len(password) < 5:
             raise ValueError('La contraseña debe tener al menos 5 caracteres')
         
 
-app = FastAPI()
+user = User(nombre="Abner", edad=32, email="email@email.com", password="12345")
+
+print("User: ", user)
