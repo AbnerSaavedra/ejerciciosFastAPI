@@ -1,5 +1,5 @@
 from typing import Annotated, Union
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic import BaseModel
 
@@ -41,7 +41,21 @@ def dumb_decode_token(token):
 
 async def get_current_user(token: Annotated[str, Depends(oauth2_scheme)]):
     user = dumb_decode_token(token)
+    if not user:
+        raise HTTPException(
+            status_code= status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authentication credentials",
+            headers={"WWW-Authenticate": "Bearer"}
+        )
     return user
+
+async def get_current_user_active(current_user: Annotated[User, Depends(get_current_user)]):
+    if not current_user.disabled:
+        raise HTTPException(
+            status_code= 400,
+            detail="Invalid user"
+        )
+    return current_user
 
 def dumb_hash_password(password: str):
     return "dumbhashed" + password
