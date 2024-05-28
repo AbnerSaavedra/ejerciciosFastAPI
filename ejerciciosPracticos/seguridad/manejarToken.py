@@ -31,7 +31,7 @@ dummy_users_db = {
     "hashed_password": "dumbhashedsecret2",
     "full_name": "Alice Wonderson",
     "disabled": True
-   } 
+   }
 }
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
