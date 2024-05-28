@@ -95,12 +95,16 @@ def verify_password(plain_password, hashed_password):
     return pwd_context.verify(plain_password, hashed_password)
 
 def autheticate_user(fake_db, username: str, password: str):
-    user = get_user(fake_db, )
+    user = get_user(fake_db, username)
     if not user:
         return False
     if not verify_password(password, user.hashed_password):
         return False
     return user
+
+@app.get("/users/me")
+async def read_users_me(current_user: Annotated[User, Depends(get_current_user)]):
+    return current_user
 
 @app.post("/token")
 async def login_for_access_token(form_data: Annotated[OAuth2PasswordRequestForm, Depends()]) -> Token:
