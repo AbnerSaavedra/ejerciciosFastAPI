@@ -13,7 +13,7 @@ app = FastAPI()
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
-SECRET_KEY = "CLAVESECRETA"
+SECRET_KEY = "27A0D7C4CCCE76E6BE39225B7EEE8BD0EF890DE82D49E459F4C405C583080AB0"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
@@ -21,12 +21,14 @@ dummy_users_db = {
    "johndoe": {
     "username": "johndoe",
     "email": "johndoe@example.com",
+    "hashed_password": "dumbhashedsecret",
     "full_name": "John Doe",
     "disabled": False
    },
    "alice": {
     "username": "alice",
     "email": "alice@example.com",
+    "hashed_password": "dumbhashedsecret2",
     "full_name": "Alice Wonderson",
     "disabled": True
    } 

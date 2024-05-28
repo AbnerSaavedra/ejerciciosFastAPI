@@ -11,12 +11,14 @@ dummy_users_db = {
    "johndoe": {
     "username": "johndoe",
     "email": "johndoe@example.com",
+    "hashed_password": "dumbhashedsecret",
     "full_name": "John Doe",
     "disabled": False
    },
    "alice": {
     "username": "alice",
     "email": "alice@example.com",
+    "hashed_password": "dumbhashedsecret2",
     "full_name": "Alice Wonderson",
     "disabled": True
    } 
