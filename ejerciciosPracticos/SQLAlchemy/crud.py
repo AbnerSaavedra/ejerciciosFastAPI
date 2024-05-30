@@ -5,6 +5,7 @@ def get_user(db: Session, user_id: int):
     return db.query(models.User).filter(models.User.id == user_id).first()
 
 def get_user_by_email(db: Session, email: str):
+    print("Db: ", db, "Email: ", email)
     return db.query(models.User).filter(models.User.email == email).first()
 
 def get_users(db: Session, skip: int = 0, limit: int = 100):
@@ -23,6 +24,7 @@ def get_items(db: Session, skip: int = 0, limit: int = 100):
 
 def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db_item = models.Item(**item.model_dump(), owner_id=user_id)
+    print("DB item: ", db_item)
     db.add(db_item)
     db.commit()
     db.refresh(db_item)

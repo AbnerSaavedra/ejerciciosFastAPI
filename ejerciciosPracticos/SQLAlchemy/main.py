@@ -20,6 +20,7 @@ def get_db():
 def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     print("Users: ", user)
     db_user = crud.get_user_by_email(db, email=user.email)
+    print("Db user: ", db_user)
     if db_user: 
         raise HTTPException(status_code=400, detail="Email already registered")
     return crud.create_user(db=db, user=user)
@@ -36,8 +37,9 @@ def create_user(user_id: int, db: Session = Depends(get_db)):
         raise HTTPException(status_code=404, detail="User not found")
     return db_user
 
-@app.get("/users/{user_id}/items/", response_model=schemas.User)
+@app.post("/users/{user_id}/items/", response_model=schemas.User)
 def create_user_for_item(user_id: int, item: schemas.ItemCreate, db: Session = Depends(get_db)):
+    print("User id: ", user_id, "Item: ", item)
     return crud.create_user_item(db=db, item=item, user_id=user_id)
 
 @app.get("/items/", response_model=list[schemas.Item])

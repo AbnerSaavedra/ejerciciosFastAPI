@@ -15,7 +15,7 @@ class Item(ItemBase):
         orm_mode = True
 
 class UserBase(BaseModel):
-    email: set
+    email: str
 
 class UserCreate(UserBase):
     password: str
