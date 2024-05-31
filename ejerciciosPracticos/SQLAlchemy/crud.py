@@ -28,4 +28,5 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.add(db_item)
     db.commit()
     db.refresh(db_item)
+    print("Db items: ", db_item)
     return db_item
